@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>TADP</title>
+    <description>Write your site description here. It will be used as your sites meta description as well!</description>
+    <link>http://uqbar-project.github.io/</link>
+    <atom:link href="http://uqbar-project.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sun, 14 Aug 2016 19:40:36 -0300</pubDate>
+    <lastBuildDate>Sun, 14 Aug 2016 19:40:36 -0300</lastBuildDate>
+    <generator>Jekyll v2.4.0</generator>
+    
+  </channel>
+</rss>

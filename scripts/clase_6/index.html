@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Write your site description here. It will be used as your sites meta description as well!">
+
+    <title>TADP</title>
+
+    <link rel="canonical" href="http://uqbar-project.github.io/scripts/clase_6/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">TADP</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                
+                <li>
+                    <a href="/quienessomos/">Quienes Somos</a>
+                </li>
+                
+                <li>
+                    <a href="/administrativos/">Temas Administrativos</a>
+                </li>
+                
+                <li>
+                    <a href="/contenidos/">Contenidos</a>
+                </li>
+                
+                <li>
+                    <a href="/cursada/">Cursada</a>
+                </li>
+                
+                <li>
+                    <a href="/material/">Material</a>
+                </li>
+                
+                <li>
+                    <a href="/planificación/">Planificación</a>
+                </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1>TADP</h1>
+                    <hr class="small">
+                    <span class="subheading">Script Clase 6 TADP 1C2016</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+			<h1 id="clase-6-ejercicio-integrador-n-2">Clase 6: Ejercicio Integrador N° 2</h1>
+
+<p>En esta clase veremos otro ejercicio integrador con el mismo fin que la clase pasada. Para ello realizaremos el ejercicio de Multimethods. </p>
+
+<h2 id="que-es-multimethod">Que es multimethod?</h2>
+
+<p>Es un sistema que permite que una serie de métodos sean polimórficos en al menos uno o más de sus argumentos. Esta idea se puede ver en CLOS (Common Lisp Object System) y algunos lenguajes como Dylan. CLOS extiende a Common Lisp para agregar un sistema de objectos <a href="http://c2.com/cgi/wiki?TheArtOfTheMetaObjectProtocol">http://c2.com/cgi/wiki?TheArtOfTheMetaObjectProtocol</a> extendiendo el lenguaje y para dar soporte a objetos. </p>
+
+<h2 id="una-explicacin-simple-de-multimethods">Una explicación simple de Multimethods</h2>
+
+<p>En Ruby como en Python, ambos tienen sistemas de single dispatch, en el que la firma es esencialmente el nombre del método, sin importar en temas como la aridad, por lo que dos métodos como </p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">saraza</span>(a)
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>….
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>end
+</pre></div>
+</div>
+</div>
+
+<p>y </p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">saraza</span>(a, b, c)
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>….
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>end
+</pre></div>
+</div>
+</div>
+
+<p>no serán dos métodos sino que dependiendo de cómo estén declarados en el caso de Ruby, la segunda declaración pisa a la primera, en el caso de Python, en general sucede lo mismo en un intérprete o directamente nos lanzará un error en el código. Más allá de eso, nosotros queremos que saraza(a) y saraza(a, b) puedan coexistir y el método a ejecutar dependa de cuáles sean los parámetros recibidos. Por lo que deberemos chequear esto en tiempo de ejecución y dirigir el flujo al método con la firma adecuada. Esto se relaciona un poco con el concepto de polimorfismo del receptor, por ej. si tenemos algo como:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>a.saraza(unParam)
+</pre></div>
+</div>
+</div>
+
+<p>a ejecutará un método u otro dependiendo de la clase a la que pertenece, queremos abrir la puerta a que también se decida en base al tipo de unParam. Vamos a hablar más sobre firmas de métodos y la búsqueda de la definición para un mensaje a partir de la misma en la segunda parte de la materia, cuando trabajemos con un lenguaje con tipado estático. De momento quédense con la idea de que lo que queremos implementar va a resolver qué definición usar en tiempo de ejecución, a partir del tipo de todos los objetos involucrados en el envío del mensaje, no sólo el receptor.</p>
+
+<h2 id="en-donde-entra-la-metaprogramacin">En donde entra la metaprogramación?</h2>
+
+<p>En este caso extenderemos a Ruby agregándole multimethods, de esta manera estamos un poco más del lado de intercession que es la capacidad de extender el lenguaje en el que estamos para agregarle más features interesantes (o locos?). Además como otros ejercicios usaremos reflection y self modification para llegar a resolver este problema.</p>
+
+<p>Sobre el ejercicio</p>
+
+<p>El enunciado del ejercicio esta <a href="https://www.google.com/url?q=http://drive.google.com/open?id%3D1_yCtJQdQbhaeWny5ByMJKNJKpCmEdTELoTEoCZG4_4Q&amp;sa=D&amp;ust=1471097603702000&amp;usg=AFQjCNHbRgVqvmyQL0fi9u3_cIJPY15dXQ">acá</a></p>
+
+<p>El código al que llegamos al final de la clase esta en este <a href="https://www.google.com/url?q=https://github.com/uqbar-paco/tadp-2015c2-clase6-multimethods/tree/2016-1c&amp;sa=D&amp;ust=1471097603703000&amp;usg=AFQjCNFun2wmaE3O82_8PFpqQip0UG49bA">repo</a></p>
+
+<p>En el primer punto implementamos algo del estilo</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>helloBlock = <span style="color:#036;font-weight:bold">PartialBlock</span>.new([<span style="color:#036;font-weight:bold">String</span>]) <span style="color:#080;font-weight:bold">do</span> |who|
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Hello </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>who<span style="font-weight:bold;color:#666">}</span></span><span style="color:#710">&quot;</span></span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>helloBlock.matches(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">a</span><span style="color:#710">&quot;</span></span>) <span style="color:#777">#true</span>
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span>helloBlock.matches(<span style="color:#00D">1</span>) <span style="color:#777">#false</span>
+<span class="line-numbers"><a href="#n7" name="n7">7</a></span>helloBlock.matches(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">a</span><span style="color:#710">&quot;</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">b</span><span style="color:#710">&quot;</span></span>) <span style="color:#777">#false</span>
+</pre></div>
+</div>
+</div>
+
+<p>Acá lo que hicimos fue algo bastante simple que es crear la abstracción del PartialBlock que contenga los tipos de los parámetros esperados y el bloque que se espera poder ejecutar, y después le definimos el método matches devolviendo true o false dependiendo de si los tipos esperados coinciden con los de los argumentos que le pasamos al método. Este método debía definirse con varargs para poder recibir múltiples argumentos como se indicaba en el ejemplo de uso.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">PartialBlock</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  attr_accessor <span style="color:#A60">:block</span>, <span style="color:#A60">:types</span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">initialize</span> types, &amp;block
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>    <span style="color:#069">self</span>.types = types
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>    <span style="color:#069">self</span>.block = block
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">matches</span>(*values)
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>    <span style="color:#080;font-weight:bold">unless</span> values.length == types.length
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>      <span style="color:#080;font-weight:bold">return</span> <span style="color:#069">false</span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>    <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>    <span style="color:#080;font-weight:bold">return</span> <span style="color:#069">true</span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Además para poder evaluarlos como se pide a continuación usando call le agregamos:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">PartialBlock</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">call</span>(*args)
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>    raise <span style="color:#036;font-weight:bold">ArgumentError</span> <span style="color:#080;font-weight:bold">unless</span> <span style="color:#069">self</span>.matches(*args)
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>    <span style="color:#069">self</span>.block.call(*args)
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n7" name="n7">7</a></span>
+<span class="line-numbers"><a href="#n8" name="n8">8</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<ol>
+  <li>El segundo punto es el de poder crear multimethods de la mano de partial_def, que debemos poder utilizarlo en el contexto de una clase, de modo que luego las instancias de esa clase puedan responder al mensaje correspondiente. </li>
+</ol>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">A</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  partial_def <span style="color:#A60">:concat</span>, [<span style="color:#036;font-weight:bold">String</span>, <span style="color:#036;font-weight:bold">String</span>] <span style="color:#080;font-weight:bold">do</span> |s1,s2|
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>    s1 + s2
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>  partial_def <span style="color:#A60">:concat</span>, [<span style="color:#036;font-weight:bold">String</span>, <span style="color:#036;font-weight:bold">Integer</span>] <span style="color:#080;font-weight:bold">do</span> |s1,n|
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>    s1 * n
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>  partial_def <span style="color:#A60">:concat</span>, [<span style="color:#036;font-weight:bold">Array</span>] <span style="color:#080;font-weight:bold">do</span> |a|
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>    a.join
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span><span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span><span style="color:#036;font-weight:bold">A</span>.new.concat(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">hello</span><span style="color:#710">'</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20"> world</span><span style="color:#710">'</span></span>) <span style="color:#777"># devuelve 'helloworld'</span>
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span><span style="color:#036;font-weight:bold">A</span>.new.concat(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">hello</span><span style="color:#710">'</span></span>, <span style="color:#00D">3</span>) <span style="color:#777"># devuelve 'hellohellohello'</span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span><span style="color:#036;font-weight:bold">A</span>.new.concat([<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">hello</span><span style="color:#710">'</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20"> world</span><span style="color:#710">'</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">!</span><span style="color:#710">'</span></span>]) <span style="color:#777"># devuelve 'hello world!'</span>
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span><span style="color:#036;font-weight:bold">A</span>.new.concat(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">hello</span><span style="color:#710">'</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">world</span><span style="color:#710">'</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">!</span><span style="color:#710">'</span></span>) <span style="color:#777"># Lanza una excepción!</span>
+</pre></div>
+</div>
+</div>
+
+<p>Ahora debemos definir el comportamiento del partial_def, abriendo una clase del metamodelo, pero cual? Podría pensarse de hacerlo sobre Object, al hacerlo sobre esta clase funcionaría para cualquier clase, pero a su vez le estaría dando este comportamiento también a cualquier objeto, lo cual no tendría sentido, sólo lo querríamos para las clases. Una opción válida sería Class aunque si queremos usar partial_def en un módulo no podremos, por lo que la otra opción es hacerlo sobre Module y permitirle tanto a clases como a módulos el de poder utilizar partial_def.</p>
+
+<p>Otra cosa que tuvimos que decidir fue cómo íbamos a representar a los multimethods y cómo almacenar la información de cada definición que se haga usando partial_def. Una primer idea fue tener un atributo que guardara un diccionario donde el selector del mensaje a definir fuera la clave y se le asociara una lista con los partial blocks. Otra alternativa, por la que decidimos ir, era reificar la idea de Multimethod, de esa forma el atributo que terminamos llamando @actual_multimethods tendría directamente una lista de instancias de Multimethod (una por cada selector) de modo que se pudiera delegar también a estos objetos en vez de mantener toda la lógica en Module.</p>
+
+<p>Para poder mandarle el mensaje definido usando partial_def a las instancias de la clase también surgieron ideas distintas. Una de ellas era definir un método en la clase/módulo que recibió partial_def que se llame igual que el símbolo recibido por parámetro de modo que triggeree la búsqueda de la implementación correspondiente en base a los parámetros que reciba, la otra era redefinir method_missing de modo que obtenga el multimethod con el símbolo correspondiente al mensaje no entendido y luego triggeree esa misma búsqueda en base a los parámetros recibidos.</p>
+
+<p>Fuimos por la primer alternativa porque no hay una verdadera necesidad de caer en el method_missing, después de todo ya sabemos de antemano cuál es el mensaje que tiene que poder entender, y en general vamos a optar por no usar method_missing en esos casos ya que es más complejo (tenemos que asegurarnos de mantener consistente la interfaz de reflection también, cosa que si definimos el método usando define_method se da solo).</p>
+
+<p>Además definimos la lógica necesaria para poder responder a los mensajes multimethod y multimethods:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#036;font-weight:bold">A</span>.multimethods() <span style="color:#777">#[:concat]</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span><span style="color:#036;font-weight:bold">A</span>.multimethod(<span style="color:#A60">:concat</span>) <span style="color:#777">#Representación del multimethod</span>
+</pre></div>
+</div>
+</div>
+
+<p>… cuya implementación, al modelar al multimethod como un objeto, es trivial. Finalmente llegamos al siguiente código:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Module</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">partial_def</span>(sym, types, &amp;block)
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>    partial_block = <span style="color:#036;font-weight:bold">PartialBlock</span>.new(types, &amp;block)
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>    multimethod = get_multimethod(sym)
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>    multimethod.definitions &lt;&lt; partial_block
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>    <span style="color:#069">self</span>.send(<span style="color:#A60">:define_method</span>, sym) <span style="color:#080;font-weight:bold">do</span> |*args|
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>      multimethod.call(*args)
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>    <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">actual_multimethods</span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>    <span style="color:#33B">@actual_multimethods</span> ||= []
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">multimethod</span>(sym)
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>    <span style="color:#069">self</span>.actual_multimethods.find { |mm| mm.selector.eql?(sym) }
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">multimethods</span>
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>    <span style="color:#069">self</span>.actual_multimethods.map { |mm| mm.selector }
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>  private
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">has_multimethod?</span>(multimethod)
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span>    <span style="color:#069">self</span>.actual_multimethods.include?(multimethod)
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span>
+<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">get_multimethod</span>(sym)
+<span class="line-numbers"><a href="#n31" name="n31">31</a></span>    multimethod = <span style="color:#069">self</span>.multimethod(sym) || <span style="color:#036;font-weight:bold">MultiMethod</span>.new(sym)
+<span class="line-numbers"><a href="#n32" name="n32">32</a></span>    actual_multimethods &lt;&lt; multimethod <span style="color:#080;font-weight:bold">unless</span> has_multimethod?(multimethod)
+<span class="line-numbers"><a href="#n33" name="n33">33</a></span>    multimethod
+<span class="line-numbers"><a href="#n34" name="n34">34</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n35" name="n35">35</a></span>
+<span class="line-numbers"><a href="#n36" name="n36">36</a></span><span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n37" name="n37">37</a></span>
+<span class="line-numbers"><a href="#n38" name="n38">38</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">MultiMethod</span>
+<span class="line-numbers"><a href="#n39" name="n39">39</a></span>
+<span class="line-numbers"><strong><a href="#n40" name="n40">40</a></strong></span>  attr_accessor <span style="color:#A60">:selector</span>, <span style="color:#A60">:definitions</span>
+<span class="line-numbers"><a href="#n41" name="n41">41</a></span>
+<span class="line-numbers"><a href="#n42" name="n42">42</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">initialize</span>(sym)
+<span class="line-numbers"><a href="#n43" name="n43">43</a></span>    <span style="color:#069">self</span>.selector = sym
+<span class="line-numbers"><a href="#n44" name="n44">44</a></span>    <span style="color:#069">self</span>.definitions = []
+<span class="line-numbers"><a href="#n45" name="n45">45</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n46" name="n46">46</a></span>
+<span class="line-numbers"><a href="#n47" name="n47">47</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">call</span>(*args)
+<span class="line-numbers"><a href="#n48" name="n48">48</a></span>    definition = <span style="color:#069">self</span>.definitions
+<span class="line-numbers"><a href="#n49" name="n49">49</a></span>                     .select { |definition| definition.matches(*args) }
+<span class="line-numbers"><strong><a href="#n50" name="n50">50</a></strong></span>                     .min_by { |definition| definition.distance_to(*args) }
+<span class="line-numbers"><a href="#n51" name="n51">51</a></span>    definition ? definition.call(*args) : raise(<span style="color:#036;font-weight:bold">NoMethodError</span>)
+<span class="line-numbers"><a href="#n52" name="n52">52</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n53" name="n53">53</a></span>
+<span class="line-numbers"><a href="#n54" name="n54">54</a></span><span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n55" name="n55">55</a></span>
+<span class="line-numbers"><a href="#n56" name="n56">56</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">PartialBlock</span>
+<span class="line-numbers"><a href="#n57" name="n57">57</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">distance_to</span>(*args)
+<span class="line-numbers"><a href="#n58" name="n58">58</a></span>    args.zip(types).each_with_index <span style="color:#080;font-weight:bold">do</span> |tuple, index|
+<span class="line-numbers"><a href="#n59" name="n59">59</a></span>      <span style="color:#080;font-weight:bold">case</span> tuple[<span style="color:#00D">1</span>]
+<span class="line-numbers"><strong><a href="#n60" name="n60">60</a></strong></span>        <span style="color:#080;font-weight:bold">when</span> <span style="color:#036;font-weight:bold">Array</span> <span style="color:#080;font-weight:bold">then</span>
+<span class="line-numbers"><a href="#n61" name="n61">61</a></span>          <span style="color:#00D">1</span> <span style="color:#777">#because classroom-related reasons</span>
+<span class="line-numbers"><a href="#n62" name="n62">62</a></span>        <span style="color:#080;font-weight:bold">else</span>
+<span class="line-numbers"><a href="#n63" name="n63">63</a></span>          tuple[<span style="color:#00D">0</span>].class.ancestors.index(tuple[<span style="color:#00D">1</span>]) * index
+<span class="line-numbers"><a href="#n64" name="n64">64</a></span>      <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n65" name="n65">65</a></span>    <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n66" name="n66">66</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n67" name="n67">67</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Cabe destacar que esa solución de partial_def fue posible gracias a que el bloque conoce el contexto en el cual fue creado, por eso no es necesario buscar el multimethod en la lista.</p>
+
+<p>A su vez, se pide extender la interfaz de reflection con métodos que indiquen si un objeto responde a un determinado mensaje con cierta firma:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#036;font-weight:bold">A</span>.new.respond_to?(<span style="color:#A60">:concat</span>) <span style="color:#777"># true, define el método como multimethod</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span><span style="color:#036;font-weight:bold">A</span>.new.respond_to?(<span style="color:#A60">:to_s</span>) <span style="color:#777"># true, define el método normalmente</span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="color:#036;font-weight:bold">A</span>.new.respond_to?(<span style="color:#A60">:concat</span>, <span style="color:#069">false</span>, [<span style="color:#036;font-weight:bold">String</span>,<span style="color:#036;font-weight:bold">String</span>]) <span style="color:#777"># true, los tipos coinciden</span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span><span style="color:#036;font-weight:bold">A</span>.new.respond_to?(<span style="color:#A60">:concat</span>, <span style="color:#069">false</span>, [<span style="color:#036;font-weight:bold">Integer</span>,<span style="color:#036;font-weight:bold">A</span>]) <span style="color:#777"># true, matchea con [Object, Object]</span>
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span><span style="color:#036;font-weight:bold">A</span>.new.respond_to?(<span style="color:#A60">:to_s</span>, <span style="color:#069">false</span>, [<span style="color:#036;font-weight:bold">String</span>]) <span style="color:#777"># false, no es un multimethod</span>
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span><span style="color:#036;font-weight:bold">A</span>.new.respond_to?(<span style="color:#A60">:concat</span>, <span style="color:#069">false</span>, [<span style="color:#036;font-weight:bold">String</span>,<span style="color:#036;font-weight:bold">String</span>,<span style="color:#036;font-weight:bold">String</span>]) <span style="color:#777"># false, los tipos no coinciden</span>
+</pre></div>
+</div>
+</div>
+
+<p>Entonces también debemos redefinir el respond_to?. Hay que tener siempre cuidado con este tipo de extensiones ya que debemos estar atentos de no modificar el comportamiento para aquellos métodos que no fueron definidos por medio de un partial_def. Las opciones propuestas fueron:
+Definir respond_to? usando partial_def, de modo que que la definición original de respond_to? (la cual deberíamos asegurarnos de no perder mediante un alias o pidiendo el unbound method y guardándolo en una variable para poder invocarlo más adelante) se use si matchea con los tipos [Symbol] o [Symbol, Object], y una tercer definición para [Symbol, Object, Array] que haga lo que nosotros queremos.
+Redefinir respond_to? como un método normal con un if, de modo que si nos pasan el tercer parámetro, se use la definición para multimethods y sino la original.</p>
+
+<p>Tratamos de ir por la primera porque era más divertida, pero lamentablemente no funcionó por un loop infinito (respond_to? se usa en el core del method lookup, no fue por un error de la solución en sí, simplemente justo con en respond_to? no se puede, se las dejamos comentada de todos modos). Luego fuimos por la otra alternativa:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Object</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">respond_to?</span>(sym, include_private = <span style="color:#069">false</span>, signature = <span style="color:#069">nil</span>)
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>    signature.nil? ? <span style="color:#080;font-weight:bold">super</span>(sym, include_private) : <span style="color:#069">self</span>.class.actual_multimethods
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>               .any? { |mm| mm.matches?(sym, signature) }
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span><span style="color:#777">=begin</span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span><span style="color:#777">  partial_def :respond_to?, [Symbol] do |sym|</span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span><span style="color:#777">    self.old_respond_to?(sym)</span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span><span style="color:#777">  end</span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span><span style="color:#777">  partial_def :respond_to?, [Symbol, Object] do |sym, bool|</span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span><span style="color:#777">    self.old_respond_to?(sym, bool)</span>
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span><span style="color:#777">  end</span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span><span style="color:#777">  partial_def :respond_to?, [Symbol, Object, Array] do |sym, bool, types|</span>
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span><span style="color:#777">    false unless self.class.multimethods.include?(sym)</span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span><span style="color:#777">    multimethod = self.class.multimethod(sym)</span>
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span><span style="color:#777">    multimethod.matches_signature?(types)</span>
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span><span style="color:#777">  end</span>
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span><span style="color:#777">=end</span>
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Para saber si existe alguna definición para el multimethod cuya firma matchee con la lista de tipos recibida refactorizamos un poco PartialBlock para evitar la repetición de lógica.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Multimethod</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">matches?</span>(sym, types)
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>    <span style="color:#069">self</span>.selector.eql?(sym) &amp;&amp; <span style="color:#069">self</span>.definitions
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>                             .any? { |definition|definition.matches_signature?(types)}
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>  
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span><span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">PartialBlock</span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">matches</span>(*args)
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>    arg_types = args.map { |arg| arg.class }
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>    matches_signature?(arg_types)
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">matches_signature?</span>(signature)
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>    <span style="color:#080;font-weight:bold">return</span> <span style="color:#069">false</span> <span style="color:#080;font-weight:bold">unless</span> signature.size.eql?(<span style="color:#069">self</span>.types.size)
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>    <span style="color:#069">self</span>.types.zip(signature).all? <span style="color:#080;font-weight:bold">do</span> |my_type, sign_type| sign_type &lt;= my_type <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Algo que quedó en el tintero para poder ir al siguiente punto es la aclaración de que se pueda usar self dentro de la definición de un método declarado mediante partial_def. Con el código actual eso no funcionará como querríamos, si te animás, c</p>
+
+<ol>
+  <li>Hay muchos más puntos en el enunciado de TP grupal original, pero por cuestiones de tiempo los dejamos afuera para resolver que pueda usarse duck typing (que fue el TP individual que se tomó), que es básicamente que pueda conocerse la usabilidad de un objeto de acuerdo a sus comportamientos en vez de su tipo estrictamente. Es decir que trato a dos objetos de distintas clases polimórficamente si entienden el mismo subconjunto de mensajes aún si son cosas totalmente diferentes como el siguiente ejemplo:</li>
+</ol>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Duck</span>:
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>    <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">quack</span>(<span style="color:#069">self</span>):
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>        print(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Quaaaaaack!</span><span style="color:#710">&quot;</span></span>)
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>    <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">feathers</span>(<span style="color:#069">self</span>):
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>        print(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">The duck has white and gray feathers.</span><span style="color:#710">&quot;</span></span>)
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Person</span>:
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>    <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">quack</span>(<span style="color:#069">self</span>):
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>        print(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">The person imitates a duck.</span><span style="color:#710">&quot;</span></span>)
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>    <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">feathers</span>(<span style="color:#069">self</span>):
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>        print(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">The person takes a feather from the ground and shows it.</span><span style="color:#710">&quot;</span></span>)
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>    <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">name</span>(<span style="color:#069">self</span>):
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>        print(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">John Smith</span><span style="color:#710">&quot;</span></span>)
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span><span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">in_the_forest</span>(duck):
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>    duck.quack()
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>    duck.feathers()
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span><span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">game</span>():
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>    donald = Duck()
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>    john = Person()
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>    in_the_forest(donald)
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>    in_the_forest(john)
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>game()
+</pre></div>
+</div>
+</div>
+
+<p>Ahora volviendo al ejercicio, vamos a definir duck typing de la siguiente manera</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">B</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>    partial_def <span style="color:#A60">:concat</span>, [<span style="color:#036;font-weight:bold">String</span>, [<span style="color:#A60">:m</span>, <span style="color:#A60">:n</span>], <span style="color:#036;font-weight:bold">Integer</span>] <span style="color:#080;font-weight:bold">do</span> |o1, o2, o3|
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>    <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Objetos Concatenados</span><span style="color:#710">'</span></span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>    <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Si el argumento que debería ser un tipo es un array de símbolos, representando el nombre de los selectores que debería entender, entonces se debe aplicar duck typing. Para implementar este agregado entonces debemos extender el matches del partial block de la siguiente manera.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">PartialBlock</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">matches_signature?</span>(signature)
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>    <span style="color:#080;font-weight:bold">return</span> <span style="color:#069">false</span> <span style="color:#080;font-weight:bold">unless</span> signature.size.eql?(<span style="color:#069">self</span>.types.size)
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>    <span style="color:#069">self</span>.types.zip(signature).all? <span style="color:#080;font-weight:bold">do</span> |my_type, sign_type|
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>      <span style="color:#080;font-weight:bold">case</span> my_type
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>        <span style="color:#080;font-weight:bold">when</span> <span style="color:#036;font-weight:bold">Array</span> <span style="color:#080;font-weight:bold">then</span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>          my_type.all? { |method| sign_type.instance_methods.include?(method) }
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>        <span style="color:#080;font-weight:bold">else</span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>          sign_type &lt;= my_type
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>      <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>    <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>A esta altura debería volverse más evidente que el refactor que hicimos en el punto anterior para no repetir lógica era muy importante. Si no lo hacíamos antes, lo íbamos a tener que hacer ahora.</p>
+
+<p>Algunas alternativas que no hubieran estado buenas para resolver este ejercicio:
+Definir todo en términos de duck typing obteniendo todos los mensajes que definen las clases correspondientes. Eso rompería la funcionalidad porque el tipo en base a los mensajes que entiene puede abarcar objetos que no están en la jerarquía que se pedía inicialmente.
+Resolver el if/switch con polimorfismo abriendo Array y Module. Esto es algo muy particular de nuestro framework, y ensuciar más la interfaz de Array y Module para evitar ese if no es una buena idea.</p>
+
+		</div>
+	</div>
+</div>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    <li>
+                        <a href="https://github.com/uqbar-paco">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; TADP 2016</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

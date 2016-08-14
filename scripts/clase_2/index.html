@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Write your site description here. It will be used as your sites meta description as well!">
+
+    <title>TADP</title>
+
+    <link rel="canonical" href="http://uqbar-project.github.io/scripts/clase_2/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">TADP</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                
+                <li>
+                    <a href="/quienessomos/">Quienes Somos</a>
+                </li>
+                
+                <li>
+                    <a href="/administrativos/">Temas Administrativos</a>
+                </li>
+                
+                <li>
+                    <a href="/contenidos/">Contenidos</a>
+                </li>
+                
+                <li>
+                    <a href="/cursada/">Cursada</a>
+                </li>
+                
+                <li>
+                    <a href="/material/">Material</a>
+                </li>
+                
+                <li>
+                    <a href="/planificación/">Planificación</a>
+                </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1>TADP</h1>
+                    <hr class="small">
+                    <span class="subheading">Script Clase 2 TADP 2C2016</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+			<h1 id="continuacin-ejercicio-age-of-empires">Continuación ejercicio age of empires</h1>
+<p>Sobre el ejercicio de la clase anterior agregamos la posibilidad de que los atacantes y defensores puedan “descansar” y los siguientes requerimientos.</p>
+
+<p>El descanso de la guerra</p>
+
+<p>Todas las unidades pueden descansar. Cuando un atacante descansa, tiene el efecto de duplicar su potencial ofensivo en su próximo ataque.
+Cuando un defensor descansa, suma siempre 10 de energía.</p>
+
+<p>Banzai!</p>
+
+<p>La característica del kamikaze es que se comporta como un atacante y un defensor, y su potencial ofensivo es 250, pero luego de atacar, su energía queda en 0.
+Como la unidad va a morir luego de atacar, puede descansar como atacante, pero no debe descansar como defensor.</p>
+
+<p>Atacando de la mano</p>
+
+<p>Queremos que los guerreros formen parte de un pelotón. Cuando un guerrero es atacado, el pelotón puede tomar alguna acción. Ciertos pelotones se retiran cuando alguna de sus unidades es lastimada. Otros pelotones hacen que el guerrero descanse cuando recibe un daño y no está descansado. Un guerrero está descansado cuando su energía es mayor a 40.</p>
+
+<h2 id="implementacin"><strong>Implementación</strong></h2>
+
+<p>Arranquemos por el Defensor, cuando un defensor descansa, suma 10 de energía.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">module</span> <span style="color:#B06;font-weight:bold">Defensor</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>    <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">descansar</span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>        <span style="color:#069">self</span>.energia += <span style="color:#00D">10</span>
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>    <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span>
+<span class="line-numbers"><a href="#n7" name="n7">7</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Por otro lado, cuando le decimos “descansar” al atacante, este ataca con el doble de energía en su próxima pelea.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span><span style="color:#080;font-weight:bold">module</span> <span style="color:#B06;font-weight:bold">Atacante</span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">atacar</span>(un_defensor)
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>    <span style="color:#080;font-weight:bold">if</span> <span style="color:#069">self</span>.potencial_ofensivo &gt; un_defensor.potencial_defensivo
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>      danio = <span style="color:#069">self</span>.potencial_ofensivo - un_defensor.potencial_defensivo
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>      un_defensor.sufri_danio(danio)
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>    <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>    <span style="color:#069">self</span>.descansado = <span style="color:#069">false</span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">potencial_ofensivo</span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>    <span style="color:#069">self</span>.descansado ? <span style="color:#33B">@potencial_ofensivo</span> * <span style="color:#00D">2</span> : <span style="color:#33B">@potencial_ofensivo</span>
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">descansar</span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>    <span style="color:#069">self</span>.descansado = <span style="color:#069">true</span>
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span><span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>
+</pre></div>
+</div>
+</div>
+
+<p>Hasta acá todo muy bien, pero ahora, surge el problema de que Guerrero, como usa el mixin Atacante, y el mixin Defensor, estaría trayendo dos métodos iguales, por lo que surge un conflicto. Entonces la pregunta es, ¿cómo se va a comportar el guerrero si le mandamos el mensaje descansar?</p>
+
+<p>No se va a romper, porque los conflictos de mixins se resuelven automáticamente por medio de la linearización. En el caso de ruby, la segunda definición va a pisar la primera, entonces por cómo definimos Guerrero, al incluir último el Defensor, la definición del mixin Defensor se va a ejecutar y no la de Atacante.</p>
+
+<p>Pero para los Guerreros vamos a querer que descanse como atacante y luego como defensor (o sea de ambas formas).</p>
+
+<p>Para lograr esto, vamos a usar la posibilidad de crear alias methods que nos provee ruby:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Guerrero</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  include <span style="color:#036;font-weight:bold">Atacante</span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>  alias_method <span style="color:#A60">:descansar_atacante</span>, <span style="color:#A60">:descansar</span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>  include <span style="color:#036;font-weight:bold">Defensor</span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>  alias_method <span style="color:#A60">:descansar_defensor</span>, <span style="color:#A60">:descansar</span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">descansar</span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>    <span style="color:#069">self</span>.descansar_atacante
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>    <span style="color:#069">self</span>.descansar_defensor
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Nótese que no solucionamos el conflicto sólo con definir los alias, lo que vamos a tener son tres métodos: :descansar_atacante, :descansar_defensor y :descansar (cuya implementación va a coincidir con la de Defensor).</p>
+
+<p>Es necesario sobreescribir el método :descansar para lograr el comportamiento que queríamos.</p>
+
+<h2 id="kamikaze"><strong>Kamikaze</strong></h2>
+<p>Ahora queremos agregar los Kamikaze, que son Atacantes y Defensores, pero descansan solo como Atacante porque van a morir de todas maneras:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Kamikaze</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  include <span style="color:#036;font-weight:bold">Defensor</span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>  include <span style="color:#036;font-weight:bold">Atacante</span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">initialize</span>(energia=<span style="color:#00D">100</span>, potencial_defensivo=<span style="color:#00D">10</span>)     
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>    <span style="color:#069">self</span>.potencial_ofensivo = <span style="color:#00D">250</span> 
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>    <span style="color:#069">self</span>.energia = energia     
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>    <span style="color:#069">self</span>.potencial_defensivo = potencial_defensivo   
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">atacar</span>(un_defensor)
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>    <span style="color:#080;font-weight:bold">super</span>(un_defensor)
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>    <span style="color:#069">self</span>.energia = <span style="color:#00D">0</span>
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>  
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<h2 id="pelotones"><strong>Pelotones</strong></h2>
+<p>A continuación vamos a agregar los Pelotones, que tienen un conjunto de Guerreros que lo integran. Queremos que entiendan descansar y que hagan descansar a todos los integrantes que estén cansados. ¿Queremos que el Peloton sea un Defensor o un Atacante? ¿Qué aportan estos Mixins en cuanto a compartición de código? ¿Sería una buena idea desde el punto de vista de la naturaleza?</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Guerrero</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  attr_accessor <span style="color:#A60">:peloton</span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span><span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Peloton</span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>  attr_accessor <span style="color:#A60">:guerreros</span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">initialize</span>(integrantes)
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>     <span style="color:#069">self</span>.integrantes = integrantes
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>     <span style="color:#069">self</span>.integrantes.each { |integrante|integrante.peloton = <span style="color:#069">self</span>} 
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">descansar </span>    
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>    cansados = <span style="color:#069">self</span>.integrantes.select { |integrante| 
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>      integrante.cansado     
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>    }     
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>    cansados.each { |integrante| 
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>      integrante.descansar 
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>    }  
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Cabe destacar que los bloques (tanto si los escribimos con llaves como con do y end) <strong>no son objetos</strong> y sólo se puede pasar un bloque como último parámetro del método.</p>
+
+<p>Como necesitamos que los guerreros puedan avisarle a su pelotón que sufrieron daño para que el pelotón decida cómo reaccionar, tenemos que redefinir cómo reciben daño los Guerreros.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Guerrero</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">sufri_danio</span>(danio)
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>    <span style="color:#080;font-weight:bold">super</span>(danio)
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>    <span style="color:#069">self</span>.lastimado <span style="color:#080;font-weight:bold">if</span> cansado 
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>  
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">cansado </span>    
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>    <span style="color:#069">self</span>.energia &lt;= <span style="color:#00D">40</span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>  end 
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Ahora, lo que vamos a hacer es modelar las estrategias que sigue el Pelotón, donde cada estrategia es una clase distinta (ver patrón Strategy):</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Peloton</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  attr_accessor <span style="color:#A60">:integrantes</span>, <span style="color:#A60">:retirado</span>, <span style="color:#A60">:estrategia</span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">initialize</span>(integrantes, estrategia) 
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>    <span style="color:#069">self</span>.integrantes = integrantes
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>    <span style="color:#069">self</span>.estrategia = estrategia
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>    <span style="color:#069">self</span>.integrantes.each { |integrante| 
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>      integrante.peloton = <span style="color:#069">self</span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>    }
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">lastimado</span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>    <span style="color:#069">self</span>.estrategia.lastimado(<span style="color:#069">self</span>)
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">retirate</span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>    <span style="color:#069">self</span>.retirado = <span style="color:#069">true</span>
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span><span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Descansador</span>
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">lastimado</span>(peloton)
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>    peloton.descansar
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span><span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span>
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Cobarde</span>
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">lastimado</span>(peloton)
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span>   peloton.retirate
+<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n31" name="n31">31</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>El problema que tenemos aca es que cada vez que se quiera crear un nuevo tipo de estrategia, debe crearse una nueva clase. Esto en principio no es muy problemático, pero es algo que puede ser molesto si hay muchos tipos de estrategias para cuando se lastima el pelotón, tendría un montón de clases para que definan sólo un método.</p>
+
+<p>Una alternativa para este problema sería que el Peloton conozca un bloque de código en vez de una instancia de Descansador o Cobarde. Si bien los bloques de Ruby no son objetos, y necesitaríamos que lo sean para que el pelotón lo conozca y lo pueda ejecutar cuando sea necesario mandándole un mensaje, lo que podemos usar son procs o lambdas, que <strong>sí son objetos</strong>. Para evitar confusiones a los procs y lambdas vamos a decirles closures, después podemos ver en qué se diferencian pero no hace al ejemplo.</p>
+
+<p>La parte simpática de tener una clase por cada estrategia era la facilidad de creación de un ejército descansador por ejemplo, ya que si tenemos que inicializarlo con el closure adecuado podría llevarnos a repetir lógica. Por eso definimos métodos de clase que devuelven el Peloton creado y configurado con el código de la acción a tomar.</p>
+
+<p>Para definir estos métodos de clase vamos a esperar que nos pasen bloques y en el método convertirlo en un closure que pueda ser referenciado por el pelotón y usado más adelante con el mensaje call.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Peloton</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  attr_accessor <span style="color:#A60">:integrantes</span>, <span style="color:#A60">:retirado</span>, <span style="color:#A60">:estrategia</span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#069">self</span>.<span style="color:#06B;font-weight:bold">cobarde</span>(integrantes) 
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>    <span style="color:#069">self</span>.new(integrantes) {|peloton| 
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>      peloton.retirate
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>    }
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#069">self</span>.<span style="color:#06B;font-weight:bold">descansador</span>(integrantes)
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>    <span style="color:#069">self</span>.new( integrantes) { |peloton| 
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>      peloton.descansar 
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>    }
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">initialize</span>(integrantes, &amp;estrategia)
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>    <span style="color:#069">self</span>.integrantes = integrantes
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>    <span style="color:#069">self</span>.estrategia = estrategia
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>    <span style="color:#069">self</span>.integrantes.each { |integrante| 
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>      integrante.peloton = <span style="color:#069">self</span>
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>    }
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">lastimado</span>(defensor)
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>    <span style="color:#069">self</span>.estrategia.call(<span style="color:#069">self</span>)
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span>
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Retomando el tema de las diferencias entre procs y lambdas, los procs no checkean la cantidad de argumentos que reciben mientras que las lambdas sí. Por otro lado también hay una diferencia con el uso de return dentro de una lambda o de un proc, ya que en return en la lambda sólo finaliza la ejecución de ella misma sin afectar al contexto en el cual se encuentra, mientras que el proc hace que se retorne del método que lo contiene.</p>
+
+<p>Tanto procs como lambdas son instancias de la clase Proc.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>lam = lambda { |x| puts x }    <span style="color:#777"># creates a lambda that takes 1 argument</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>lam.call(<span style="color:#00D">2</span>)                    <span style="color:#777"># prints out 2</span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>lam.call                       <span style="color:#777"># ArgumentError: wrong number of arguments (0 for 1)</span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>lam.call(<span style="color:#00D">1</span>,<span style="color:#00D">2</span>,<span style="color:#00D">3</span>)                <span style="color:#777"># ArgumentError: wrong number of arguments (3 for 1)</span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>proc = <span style="color:#036;font-weight:bold">Proc</span>.new { |x| puts x } <span style="color:#777"># creates a proc that takes 1 argument</span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>proc.call(<span style="color:#00D">2</span>)                   <span style="color:#777"># prints out 2</span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>proc.call                      <span style="color:#777"># returns nil</span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>proc.call(<span style="color:#00D">1</span>,<span style="color:#00D">2</span>,<span style="color:#00D">3</span>)               <span style="color:#777"># prints out 1 and forgets about the extra arguments</span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>---------------------------------------------------------------------------------------------
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span><span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">lambda_test</span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>  lam = lambda { <span style="color:#080;font-weight:bold">return</span> }
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>  lam.call
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>  puts <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Hello world</span><span style="color:#710">&quot;</span></span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span><span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>lambda_test                 <span style="color:#777"># calling lambda_test prints 'Hello World'</span>
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span><span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">proc_test</span>
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>  proc = <span style="color:#036;font-weight:bold">Proc</span>.new { <span style="color:#080;font-weight:bold">return</span> }
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>  proc.call
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>  puts <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Hello world</span><span style="color:#710">&quot;</span></span>
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span><span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span>proc_test                 <span style="color:#777"># calling proc_test prints nothing</span>
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span>------------------------------
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span>a = <span style="color:#00D">5</span>
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span>p = proc {a = a + <span style="color:#00D">1</span>}
+<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>p.call <span style="color:#777"># 6</span>
+<span class="line-numbers"><a href="#n31" name="n31">31</a></span>p.call <span style="color:#777"># 7</span>
+<span class="line-numbers"><a href="#n32" name="n32">32</a></span>
+<span class="line-numbers"><a href="#n33" name="n33">33</a></span>a   <span style="color:#777"># 7</span>
+</pre></div>
+</div>
+</div>
+
+<h2 id="anexo"><strong>Anexo</strong></h2>
+
+<p><strong>MIXINS</strong></p>
+
+<p>Si lo que queremos es incluir comportamiento de n modules, pero no nos importa utilizar un método que comparten (en este caso descansar), podemos incluir a los modules de cualquier forma, y no va a influir en lo que hagamos después. Por el contrario, si lo que queremos es utilizar algun método que aparece en más de un module, tenemos que resolver los conflictos que se presenten.</p>
+
+<p><strong>MIXINS: Resolución de conflictos</strong></p>
+
+<p>En este ejemplo, vemos que un Atacante no descansa de la misma forma que un Defensor, por lo cual podemos tomar varios caminos</p>
+
+<ol>
+  <li>Si lo que queremos es incluir comportamiento de ambos, pero ademas nos interesa que descanse como uno o como el otro, entonces el que nos interesa es el que deberia estar incluido mas abajo, porque al ser su superclase más inmediata es del primero que toma el método cuando no lo encuentra en Guerrero. Esto conlleva a un grave problema de todas formas, ya que si ambos (aunque no es muy común) tuviesen n cantidad de métodos que se llaman igual pero por algun motivo hacen cosas diferentes, ya no seríamos libres de elegir cuál toma prioridad por sobre el otro.</li>
+  <li><strong>Alias methods</strong>: Nos sirven para poder renombrar estos métodos compartidos con otro nombre y así poder utilizarlos, tanto si queremos separar su comportamiento como si queremos juntarlos. En el ejemplo, vemos que les cambia el nombre a ambos metodos para justamente poder usar a los dos. Ahora sí, una vez que ya tengo estos métodos separados puedo entonces si quiero definir un nuevo método descansar, que ejecute a ambos. </li>
+  <li>Tambien habíamos visto en clase una alternativa usando <strong>super</strong>, ya que cuando incluimos a un module por debajo del otro quedan como si fuesen superclases una de la otra (recordar que si hago ancestors de la clase que incluye a los modules, aparecen los modules y sus ancestors tambien), y entonces el module que se encuentre mas arriba va a ser la superclase mas lejana. 
+En el caso de descansar, podríamos haber definido solo el alias method para Atacante, y que cuando definimos el nuevo descansar ejecute super y luego a descansar_atacante.</li>
+</ol>
+
+<p>Hay que notar que si nosotros hubiésemos incluido más modules, podríamos hacer super (si todos tienen descansar en común) del último que incluimos, porque es la superclase inmediata, y del resto, definir alias methods.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>[<span style="color:#00D">38</span>] pry(main)&gt; <span style="color:#036;font-weight:bold">Guerrero</span>.ancestors
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>=&gt; [<span style="color:#036;font-weight:bold">Guerrero</span>, <span style="color:#036;font-weight:bold">Defensor</span>, <span style="color:#036;font-weight:bold">Atacante</span>, <span style="color:#036;font-weight:bold">Object</span>, <span style="color:#036;font-weight:bold">PP</span>::<span style="color:#036;font-weight:bold">ObjectMixin</span>, <span style="color:#036;font-weight:bold">Kernel</span>, <span style="color:#036;font-weight:bold">BasicObject</span>]
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span><span style="color:#777">### Aca vemos que su primer Superclase es Defensor.</span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Guerrero</span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>    include <span style="color:#036;font-weight:bold">Atacante</span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>    alias_method <span style="color:#A60">:descansar_atacante</span>, <span style="color:#A60">:descansar</span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>    include <span style="color:#036;font-weight:bold">Defensor</span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>    <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">descansar</span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>         <span style="color:#069">self</span>.descansar_atacante  <span style="color:#080;font-weight:bold">super</span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>    <span style="color:#080;font-weight:bold">end</span>  
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span><span style="color:#080;font-weight:bold">end</span>  
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>[<span style="color:#00D">39</span>] pry(main)&gt; un_guerrero = <span style="color:#036;font-weight:bold">Guerrero</span>.new
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>=&gt; <span style="color:#777">#&lt;Guerrero2:0x0000000258f668&gt;</span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>[<span style="color:#00D">40</span>] pry(main)&gt; un_guerrero.descansar
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>soy atacante
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>soy defensor
+</pre></div>
+</div>
+</div>
+<p><strong>Lazy Initialization</strong></p>
+
+<p>Podemos usar <code>||=</code> para inicializar una variable, pero hay que tomar algunas consideraciones con eso. Hay que tener en cuenta que Ruby tiene algunos valores que considera que son false o que son true. Por ejemplo, a nil lo considera false, y otros valores como numeros, letras, etc, los considera true.
+Supongamos que quiero inicializar <code>@a</code>:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">inicializar</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span> <span style="color:#33B">@a</span> ||= <span style="color:#33B">@b</span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#777">### a. Si @variable es true o se considera true, toma el valor de  @a, sin importar el valor de @b</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>[<span style="color:#00D">15</span>] pry(main)&gt; <span style="color:#33B">@a</span> = <span style="color:#00D">3</span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>=&gt; <span style="color:#00D">3</span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>[<span style="color:#00D">16</span>] pry(main)&gt; <span style="color:#33B">@b</span> = <span style="color:#069">false</span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>=&gt; <span style="color:#069">false</span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>[<span style="color:#00D">17</span>] pry(main)&gt; <span style="color:#33B">@a</span> ||= <span style="color:#33B">@b</span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>=&gt; <span style="color:#00D">3</span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>[<span style="color:#00D">18</span>] pry(main)&gt; <span style="color:#33B">@b</span> = <span style="color:#00D">4</span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>=&gt; <span style="color:#00D">4</span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>[<span style="color:#00D">19</span>] pry(main)&gt; <span style="color:#33B">@a</span> ||= <span style="color:#33B">@b</span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>=&gt; <span style="color:#00D">3</span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span><span style="color:#777">### b. Si @a es false o se considera false, toma el valor de @b</span>
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span> pry(main)&gt; <span style="color:#33B">@a</span> = <span style="color:#069">nil</span>
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>=&gt; <span style="color:#069">nil</span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>[<span style="color:#00D">2</span>] pry(main)&gt; <span style="color:#33B">@b</span> = <span style="color:#00D">3</span>
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>=&gt; <span style="color:#00D">3</span>
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span><span style="color:#777">## Aca vemos que al hacer || devuelve el que considera true, o sea @b</span>
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>[<span style="color:#00D">3</span>] pry(main)&gt; <span style="color:#33B">@a</span> || <span style="color:#33B">@b</span>    
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>=&gt; <span style="color:#00D">3</span>
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>[<span style="color:#00D">4</span>] pry(main)&gt; <span style="color:#33B">@a</span>   <span style="color:#777">## @a sigue siendo nil</span>
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>=&gt; <span style="color:#069">nil</span>
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>[<span style="color:#00D">5</span>] pry(main)&gt; <span style="color:#33B">@a</span> ||= <span style="color:#33B">@b</span>    <span style="color:#777">##Lazy initialization</span>
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>=&gt; <span style="color:#00D">3</span>
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span>[<span style="color:#00D">6</span>] pry(main)&gt; <span style="color:#33B">@a</span>
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span>=&gt; <span style="color:#00D">3</span>
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span>
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span><span style="color:#777">### c. Si ambos son false o se consideran false, siempre toma el segundo valor.</span>
+<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>
+<span class="line-numbers"><a href="#n31" name="n31">31</a></span>[<span style="color:#00D">12</span>] pry(main)&gt; <span style="color:#33B">@a</span> = <span style="color:#069">nil</span>
+<span class="line-numbers"><a href="#n32" name="n32">32</a></span>=&gt; <span style="color:#069">nil</span>
+<span class="line-numbers"><a href="#n33" name="n33">33</a></span>[<span style="color:#00D">13</span>] pry(main)&gt; <span style="color:#33B">@b</span> = <span style="color:#069">false</span>
+<span class="line-numbers"><a href="#n34" name="n34">34</a></span>=&gt; <span style="color:#069">false</span>
+<span class="line-numbers"><a href="#n35" name="n35">35</a></span>[<span style="color:#00D">14</span>] pry(main)&gt; <span style="color:#33B">@a</span> ||= <span style="color:#33B">@b</span>
+<span class="line-numbers"><a href="#n36" name="n36">36</a></span>=&gt; <span style="color:#069">false</span>
+</pre></div>
+</div>
+</div>
+
+<h2 id="sobre-bloques-como-objetos"><strong>Sobre bloques como objetos</strong></h2>
+
+<p>Ademas de todo lo visto de bloques, puede ser muy útil guardar un bloque como un objeto (un proc) y ya vimos que lo único que hay que hacer es agregar la palabra proc antes del mismo. Esto permite que podamos guardarlo en una variable y que le podamos hacer:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#33B">@a_block</span>.call(...args...)
+</pre></div>
+</div>
+</div>
+<p>Ahora, suponiendo que queremos revertir esto y convertir el objeto que era un bloque, en un bloque de nuevo, lo único que tenemos que hacer es agregar un <code>&amp;</code>, por ejemplo: <code>&amp;@a_block</code>, ya no es un objeto, sino un bloque, pero hay que entender que lo podemos hacer mientras un metodo lo vaya a recibir como argumento. 
+Un método puede recibir solo un bloque, pero varios argumentos. Por ejemplo:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>[<span style="color:#00D">1</span>] pry(main)&gt; <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">un_metodo</span>(a,b,&amp;a_block)
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span><span style="color:#777">### Para poder mandarle un bloque hay que agregar &amp;</span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>[<span style="color:#00D">1</span>] pry(main)*   a_block.call
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>[<span style="color:#00D">1</span>] pry(main)* <span style="color:#080;font-weight:bold">end</span>  
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>=&gt; <span style="color:#A60">:un_metodo</span>
+</pre></div>
+</div>
+</div>
+
+<p>Es un método que va a recibir dos argumentos y un bloque. Si yo tuviese un proc <code>@a_proc</code>, para pasárselo efectivamente debería hacer <code>&amp;@a_proc</code>.
+Probamos lo que pasa:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>[<span style="color:#00D">2</span>] pry(main)&gt; <span style="color:#33B">@a_proc</span> = proc <span style="color:#080;font-weight:bold">do</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">hello!</span><span style="color:#710">&quot;</span></span> <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>=&gt; <span style="color:#777">#&lt;Proc:0x0000000205c600@(pry):101&gt;</span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span><span style="color:#777">### Miren lo que pasa si al metodo le paso un proc:</span>
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>[<span style="color:#00D">3</span>] pry(main)&gt; un_metodo <span style="color:#00D">0</span>, <span style="color:#00D">0</span>, <span style="color:#33B">@a_proc</span>
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span><span style="color:#606">ArgumentError</span>: wrong number of arguments (given <span style="color:#00D">3</span>, expected <span style="color:#00D">2</span>)
+<span class="line-numbers"><a href="#n7" name="n7">7</a></span>from (pry):<span style="color:#00D">79</span><span style="color:#A60">:in</span> <span style="background-color:hsla(120,100%,50%,0.06)"><span style="color:#161">`</span><span style="color:#2B2">un_metodo'</span></span>
+<span class="line-numbers"><a href="#n8" name="n8">8</a></span><span style="background-color:hsla(120,100%,50%,0.06)"><span style="color:#2B2"></span></span></pre></div>
+</div>
+</div>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#777">### En cambio, si le paso un bloque:</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>[<span style="color:#00D">5</span>] pry(main)&gt; un_metodo <span style="color:#00D">0</span>,<span style="color:#00D">0</span>,&amp;<span style="color:#33B">@a_proc</span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>hello!
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>=&gt; <span style="color:#069">nil</span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span><span style="color:#777">### o también</span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>[<span style="color:#00D">6</span>] pry(main)&gt; un_metodo(<span style="color:#00D">0</span>,<span style="color:#00D">0</span>) <span style="color:#080;font-weight:bold">do</span> puts <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">hello!</span><span style="color:#710">&quot;</span></span> <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>hello!
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>=&gt; <span style="color:#069">nil</span>
+</pre></div>
+</div>
+</div>
+
+		</div>
+	</div>
+</div>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    <li>
+                        <a href="https://github.com/uqbar-paco">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; TADP 2016</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

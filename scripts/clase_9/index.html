@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Write your site description here. It will be used as your sites meta description as well!">
+
+    <title>TADP</title>
+
+    <link rel="canonical" href="http://uqbar-project.github.io/scripts/clase_9/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">TADP</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                
+                <li>
+                    <a href="/quienessomos/">Quienes Somos</a>
+                </li>
+                
+                <li>
+                    <a href="/administrativos/">Temas Administrativos</a>
+                </li>
+                
+                <li>
+                    <a href="/contenidos/">Contenidos</a>
+                </li>
+                
+                <li>
+                    <a href="/cursada/">Cursada</a>
+                </li>
+                
+                <li>
+                    <a href="/material/">Material</a>
+                </li>
+                
+                <li>
+                    <a href="/planificación/">Planificación</a>
+                </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1>TADP</h1>
+                    <hr class="small">
+                    <span class="subheading">Script Clase 9 TADP 1C2016</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+			<h1 id="tadp---2015-c2---clase-09---pattern-matching-vs-polimorfismo-ad-hoc-inmutabilidad">TADP - 2015 C2 - Clase 09 - Pattern Matching vs Polimorfismo Ad-Hoc, Inmutabilidad</h1>
+
+<h2 id="intro">Intro</h2>
+
+<p>Empezamos contando el patrón visitor[1] del libro de Gamma. La idea es que vean como se resuelve en objetos un problema en donde la solución depende de dos tipos para poder resolverlo.</p>
+
+<p>Con esto podemos empezar a ver el problema actual (ejercicio Microprocesador), mostrando la solución en objetos basada en el patrón Visitor:  </p>
+
+<p><a href="https://github.com/uqbar-paco/tadp-2015c2-clase9-microprocesador/tree/master/objetos-puro">https://github.com/uqbar-paco/tadp-2015c2-clase9-microprocesador/tree/master/objetos-puro</a></p>
+
+<p>Acá se puede apreciar que la solución en objetos es bastante complicada, a pesar de ser lo mejor que podemos hacer utilizando solamente polimorfismo ad-hoc. ¿cómo se puede mejorar entonces? Usando pattern matching.</p>
+
+<p>Dado que es más probable que agreguemos más operaciones (como ejecutar, simplificar, pretty printing, etc) que instrucciones, es menos problemático si en vez de usar polimorfismo, miramos explícitamente la estructura. En definitiva es lo que se hacía antes con el visitor, solamente que ahora esto se define dentro de la operación directamente.</p>
+
+<h2 id="pattern-matching">Pattern Matching</h2>
+
+<p>Entonces, ¿qué es pattern matching? En principio es una forma de ejecutar distinto comportamiento dependiendo de la forma del objeto. Pero en vez de delegar esta decisión en el objeto, lo realiza el objeto que lo usa. Como vamos a ir viendo, “dependiendo de la forma del objeto” es más que simplemente ver de qué tipo es, sino también ver que cosas tiene dentro.</p>
+
+<p>Pasamos a una nueva solución que usa Pattern Matching en vez del Visitor:</p>
+
+<p><a href="https://github.com/uqbar-paco/tadp-2015c2-clase9-microprocesador/tree/master/funcional-mutable">https://github.com/uqbar-paco/tadp-2015c2-clase9-microprocesador/tree/master/funcional-mutable</a></p>
+
+<p>Veamos cómo queda la nueva implementación para ejecutar el programa. Esta nueva implementación también usa pattern matching sobre la lista de instrucciones para trabajarla recursivamente mediante el patrón cabeza y cola, y para los casos en los cuales la lista no es vacía, se decide cómo ejecutar la siguiente instrucción en base a su forma:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span> class HaltException extends Exception
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span> def ejecutar(micro: Microprocesador, programa: Instruccion*) = {
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>        def ejecutarR(programa: List[Instruccion]): Unit =
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>          programa match {
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>          case Nil =&gt;
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>          case HALT :: _ =&gt; throw new HaltException
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>          case siguiente :: restantes =&gt;
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>                  siguiente match {
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>              case NOP =&gt;
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>              case ADD =&gt; micro.guardar(micro.a + micro.b)
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>              case MUL =&gt; micro.guardar(micro.a * micro.b)
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>              case SWAP =&gt;
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>                val temp = micro.a
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span>
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span>                micro.a = micro.b
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span>
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span>                micro.b = temp
+<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>
+<span class="line-numbers"><a href="#n31" name="n31">31</a></span>              case LODV(valor) =&gt; micro.a = valor
+<span class="line-numbers"><a href="#n32" name="n32">32</a></span>
+<span class="line-numbers"><a href="#n33" name="n33">33</a></span>              case LOD(direccion) =&gt;
+<span class="line-numbers"><a href="#n34" name="n34">34</a></span>
+<span class="line-numbers"><a href="#n35" name="n35">35</a></span>micro.a = micro.memoriaDeDatos(direccion)
+<span class="line-numbers"><a href="#n36" name="n36">36</a></span>
+<span class="line-numbers"><a href="#n37" name="n37">37</a></span>              case STR(direccion) =&gt;
+<span class="line-numbers"><a href="#n38" name="n38">38</a></span>
+<span class="line-numbers"><a href="#n39" name="n39">39</a></span>micro.memoriaDeDatos(direccion) = micro.a
+<span class="line-numbers"><strong><a href="#n40" name="n40">40</a></strong></span>
+<span class="line-numbers"><a href="#n41" name="n41">41</a></span>              case IFNZ(instrucciones @ _*) =&gt;
+<span class="line-numbers"><a href="#n42" name="n42">42</a></span>
+<span class="line-numbers"><a href="#n43" name="n43">43</a></span>                micro.pc += siguiente.bytes
+<span class="line-numbers"><a href="#n44" name="n44">44</a></span>
+<span class="line-numbers"><a href="#n45" name="n45">45</a></span>                if (micro.a != 0) ejecutarR(instrucciones)
+<span class="line-numbers"><a href="#n46" name="n46">46</a></span>
+<span class="line-numbers"><a href="#n47" name="n47">47</a></span>                else micro.pc += instrucciones.map(_.bytes).sum
+<span class="line-numbers"><a href="#n48" name="n48">48</a></span>
+<span class="line-numbers"><a href="#n49" name="n49">49</a></span>            }
+<span class="line-numbers"><strong><a href="#n50" name="n50">50</a></strong></span>
+<span class="line-numbers"><a href="#n51" name="n51">51</a></span>            micro.pc += siguiente.bytes
+<span class="line-numbers"><a href="#n52" name="n52">52</a></span>
+<span class="line-numbers"><a href="#n53" name="n53">53</a></span>            ejecutarR(restantes)
+<span class="line-numbers"><a href="#n54" name="n54">54</a></span>
+<span class="line-numbers"><a href="#n55" name="n55">55</a></span>        }
+<span class="line-numbers"><a href="#n56" name="n56">56</a></span>
+<span class="line-numbers"><a href="#n57" name="n57">57</a></span>        try ejecutarR(programa.toList)
+<span class="line-numbers"><a href="#n58" name="n58">58</a></span>
+<span class="line-numbers"><a href="#n59" name="n59">59</a></span>        catch {
+<span class="line-numbers"><strong><a href="#n60" name="n60">60</a></strong></span>
+<span class="line-numbers"><a href="#n61" name="n61">61</a></span>          case e: HaltException =&gt;
+<span class="line-numbers"><a href="#n62" name="n62">62</a></span>
+<span class="line-numbers"><a href="#n63" name="n63">63</a></span>        }
+<span class="line-numbers"><a href="#n64" name="n64">64</a></span>
+<span class="line-numbers"><a href="#n65" name="n65">65</a></span>  }
+</pre></div>
+</div>
+</div>
+
+<p>Para poder hacer esto, las instrucciones tienen que poder ser matcheadas con los patrones correspondientes. La forma más fácil de lograr esto (pero no la única) es definiendo las instrucciones como case classes/objects.</p>
+
+<p>El case es un modificador que agrega de forma transparente comportamiento extra, y como el pattern matching en Scala se basa en entender ciertos mensajes, al decir que por ejemplo IFNZ es una case class hacemos que este tipo de instrucciones incorporen la implementación por defecto de dichos mensajes, entre otras cosas simpáticas como la igualdad y el hash code, y la forma de imprimirse, que se basan en los parámetros de clase.</p>
+
+<p>Así quedan las instrucciones luego de este cambio:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>abstract class Instruccion(val bytes: Int = 1)
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>case object NOP extends Instruccion
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>case object ADD extends Instruccion
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>case object MUL extends Instruccion
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>case object SWAP extends Instruccion
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>case object HALT extends Instruccion
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>case class LODV(valor: Short) extends Instruccion(2)
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>case class LOD(direccion: Int) extends Instruccion(3)
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>case class STR(direccion: Int) extends Instruccion(3)
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>case class IFNZ(instrucciones: Instruccion*) extends Instruccion
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>object END {
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>  val bytes = 1
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>}
+</pre></div>
+</div>
+</div>
+
+<p>Algo a tener en cuenta sobre los objetos sobre los cuales vamos a querer trabajar usando pattern matching, es que no deberían poder mutar aquellos valores sobre los cuales pretendemos matchear. Por ese motivo, los parámetros de clase de una case class son por defecto vals, podemos acceder al valor de forma pública pero no pueden ser modificados.</p>
+
+<p>Vemos que con este nuevo enfoque, hacer una operación para simplificar un programa es muy sencillo, y lograr esta misma funcionalidad con el enfoque del visitor hubiera sido inviable por la complejidad extra de tener que analizar varios elementos consecutivos de la lista de instrucciones a la vez, con lo cual también el recorrido de la lista deja de ser trivial.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>def simplificar(programa: Instruccion*): Seq[Instruccion] = {
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>    programa.toList match {
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>      case Nil =&gt; Nil
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>      case NOP :: restantes =&gt; simplificar(restantes: _*)
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>      case SWAP :: SWAP :: restantes =&gt; simplificar(restantes: _*)  
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>      case LODV(_) :: LODV(y) :: restantes =&gt;
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>            simplificar ( LODV(y) :: restantes: _*)
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>      case LOD(_) :: LOD(y) :: restantes =&gt;
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>            simplificar ( LOD(y) :: restantes: _*)
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>      case STR(_) :: STR(y) :: restantes =&gt;
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>            simplificar ( STR(y) :: restantes: _*)
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>      case IFNZ() :: restantes =&gt; simplificar(restantes: _*)
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>      case IFNZ(instrucciones @ _*) :: restantes =&gt;
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span>
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span>              val r = simplificar(instrucciones: _*)
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span>
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span>              if(r.isEmpty) simplificar(restantes: _*)
+<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>
+<span class="line-numbers"><a href="#n31" name="n31">31</a></span>              else IFNZ(r: _*) :: simplificar( restantes: _*)
+<span class="line-numbers"><a href="#n32" name="n32">32</a></span>
+<span class="line-numbers"><a href="#n33" name="n33">33</a></span>      case siguiente :: restantes =&gt;
+<span class="line-numbers"><a href="#n34" name="n34">34</a></span>
+<span class="line-numbers"><a href="#n35" name="n35">35</a></span>            siguiente :: simplificar(restantes : _*)
+<span class="line-numbers"><a href="#n36" name="n36">36</a></span>
+<span class="line-numbers"><a href="#n37" name="n37">37</a></span>    }
+<span class="line-numbers"><a href="#n38" name="n38">38</a></span>
+<span class="line-numbers"><a href="#n39" name="n39">39</a></span>}
+</pre></div>
+</div>
+</div>
+
+<h2 id="inmutabilidad">Inmutabilidad</h2>
+
+<p>Ya en el paso anterior nos empezamos a meter con la idea de inmutabilidad porque el pattern matching se para sobre estructuras inmutables, pero nuestra solución todavía trabaja con efecto colateral sobre el microprocesador.</p>
+
+<p>¿Por qué queremos hacer el micro inmutable? En principio, un valor es más sencillo de manejar que un objeto. Al no haber mutabilidad, una operación es siempre predecible y podría simplificar el debuggeo y testeo de la solución. Además, esto nos va a permitir más adelante utilizar otros conceptos de funcional (como mónadas), pero por ahora esa parte nos la tienen que creer.</p>
+
+<p>Además de hacer el micro inmutable, hay que tener en cuenta el manejo de errores. Actualmente se está usando una excepción para manejar la instrucción HALT. Esto tiene un efecto que es modificar el stack, lo cual rompe un poco con la idea de la transparencia referencial que es un concepto fundamental para el paradigma funcional.</p>
+
+<p>Entonces debemos hacer al menos 3 cosas para acercarnos más a una solución funcionalosa:</p>
+
+<ul>
+  <li>Hacer que el micro sea inmutable e ir generando nuevas copias del micro a medida que se ejecuta</li>
+  <li>Reemplazar las excepciones por algo que represente la ejecución del programa (ejecutando, terminado, error)</li>
+  <li>Incluir toda esa información en el valor de retorno de la ejecución en vez de tener un valor de retorno de tipo Unit</li>
+</ul>
+
+<p>Para hacer el punto 1, es conveniente hacer del micro una case class, sólo por el hecho de que Scala ya nos provee un copy que es útil para no tener que ir instanciando todo de nuevo (es un chiche, pero es mucho más cómodo que hacer el new del micro y pasarle siempre TODAS las cosas).</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>case class Microprocesador(memoriaDeDatos: List[Short] =
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>  (1 to 1024).map(i =&gt; 0:Short), a: Short = 0, b: Short = 0,
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>  pc: Int = 0)
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>{
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>  def pc_+=(inc: Int) = copy(pc = pc + inc)
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>  def guardar(valor: Int) = copy(
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>        a = ((valor &amp; 0xFF00) &gt;&gt; 4).toShort,
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>        b = (valor &amp; 0x00FF).toShort
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>  )
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>}
+</pre></div>
+</div>
+</div>
+
+<p>Para el punto 2 hay que tener en cuenta 2 cosas: por un lado este resultado es el que va a ir llevando el estado durante toda la ejecución, así que parte de su responsabilidad va a ser esa. Y por otro lado, ¡por esta clase nomás!, vamos a tener que manejar este retorno dentro de la ejecución para saber si seguir ejecutando o no (más pattern matching), por eso también hacemos que sean case classes.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>trait ResultadoDeEjecucion
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>case class Ejecutando(micro: Microprocesador) extends ResultadoDeEjecucion
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>case class Halt(micro: Microprocesador) extends ResultadoDeEjecucion
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span>
+<span class="line-numbers"><a href="#n7" name="n7">7</a></span>case class Error(micro: Microprocesador, descripcion: String) extends ResultadoDeEjecucion
+</pre></div>
+</div>
+</div>
+
+<p>Finalmente para el punto 3, así nos queda la ejecución retornando los resultados de ejecución:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>def ejecutar(micro: Microprocesador, programa: Instruccion*): ResultadoDeEjecucion = programa.toList match {
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>case Nil =&gt; Ejecutando(micro)
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>case instruccionActual :: restantes =&gt;
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>  val resultado = instruccionActual match {
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>    case HALT =&gt; Halt(micro)
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>    case IFNZ(instruccionesInternas @ _*) =&gt;
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>      if (micro.a != 0)
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>            ejecutar(micro pc_+= instruccionActual.bytes,
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>              instruccionesInternas: _*) match {
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>                    case Ejecutando(m) =&gt; Ejecutando(m pc_+= END.bytes)
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>                    case otro =&gt; otro
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>              }
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>      else Ejecutando(micro pc_+= instruccionActual.bytes +
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span>
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span>            instruccionesInternas.map(_.bytes).sum + END.bytes)
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span>
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span>   
+<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>
+<span class="line-numbers"><a href="#n31" name="n31">31</a></span>    case DIV =&gt;
+<span class="line-numbers"><a href="#n32" name="n32">32</a></span>
+<span class="line-numbers"><a href="#n33" name="n33">33</a></span>      if(micro.b == 0)
+<span class="line-numbers"><a href="#n34" name="n34">34</a></span>
+<span class="line-numbers"><a href="#n35" name="n35">35</a></span>            Error(micro, &quot;Division por 0.&quot;)
+<span class="line-numbers"><a href="#n36" name="n36">36</a></span>
+<span class="line-numbers"><a href="#n37" name="n37">37</a></span>      Ejecutando(micro.guardar(micro.a/micro.b))
+<span class="line-numbers"><a href="#n38" name="n38">38</a></span>
+<span class="line-numbers"><a href="#n39" name="n39">39</a></span>           
+<span class="line-numbers"><strong><a href="#n40" name="n40">40</a></strong></span>
+<span class="line-numbers"><a href="#n41" name="n41">41</a></span>    case otra =&gt;
+<span class="line-numbers"><a href="#n42" name="n42">42</a></span>
+<span class="line-numbers"><a href="#n43" name="n43">43</a></span>      val siguienteMicro = otra match {
+<span class="line-numbers"><a href="#n44" name="n44">44</a></span>
+<span class="line-numbers"><a href="#n45" name="n45">45</a></span>            case NOP =&gt; micro
+<span class="line-numbers"><a href="#n46" name="n46">46</a></span>
+<span class="line-numbers"><a href="#n47" name="n47">47</a></span>            case ADD =&gt; micro.guardar(micro.a + micro.b)
+<span class="line-numbers"><a href="#n48" name="n48">48</a></span>
+<span class="line-numbers"><a href="#n49" name="n49">49</a></span>            case MUL =&gt; micro.guardar(micro.a * micro.b)
+<span class="line-numbers"><strong><a href="#n50" name="n50">50</a></strong></span>
+<span class="line-numbers"><a href="#n51" name="n51">51</a></span>            case SWAP =&gt; micro.copy(a = micro.b, b = micro.a)
+<span class="line-numbers"><a href="#n52" name="n52">52</a></span>
+<span class="line-numbers"><a href="#n53" name="n53">53</a></span>            case LODV(valor) =&gt; micro.copy(a = valor)
+<span class="line-numbers"><a href="#n54" name="n54">54</a></span>
+<span class="line-numbers"><a href="#n55" name="n55">55</a></span>            case LOD(direccion) =&gt;
+<span class="line-numbers"><a href="#n56" name="n56">56</a></span>
+<span class="line-numbers"><a href="#n57" name="n57">57</a></span>                    micro.copy(a = micro.memoriaDeDatos(direccion))
+<span class="line-numbers"><a href="#n58" name="n58">58</a></span>
+<span class="line-numbers"><a href="#n59" name="n59">59</a></span>            case STR(direccion) =&gt;
+<span class="line-numbers"><strong><a href="#n60" name="n60">60</a></strong></span>
+<span class="line-numbers"><a href="#n61" name="n61">61</a></span>                    micro.copy(memoriaDeDatos = micro.memoriaDeDatos.updated(direccion, micro.a))
+<span class="line-numbers"><a href="#n62" name="n62">62</a></span>
+<span class="line-numbers"><a href="#n63" name="n63">63</a></span>      }
+<span class="line-numbers"><a href="#n64" name="n64">64</a></span>
+<span class="line-numbers"><a href="#n65" name="n65">65</a></span>      Ejecutando(siguienteMicro.pc_+=(otra.bytes))
+<span class="line-numbers"><a href="#n66" name="n66">66</a></span>
+<span class="line-numbers"><a href="#n67" name="n67">67</a></span>  }
+<span class="line-numbers"><a href="#n68" name="n68">68</a></span>
+<span class="line-numbers"><a href="#n69" name="n69">69</a></span>  resultado match {
+<span class="line-numbers"><strong><a href="#n70" name="n70">70</a></strong></span>
+<span class="line-numbers"><a href="#n71" name="n71">71</a></span>    case Ejecutando(micro) =&gt; ejecutar(micro, restantes: _*)
+<span class="line-numbers"><a href="#n72" name="n72">72</a></span>
+<span class="line-numbers"><a href="#n73" name="n73">73</a></span>    case x =&gt; x
+<span class="line-numbers"><a href="#n74" name="n74">74</a></span>
+<span class="line-numbers"><a href="#n75" name="n75">75</a></span>  }
+<span class="line-numbers"><a href="#n76" name="n76">76</a></span>
+<span class="line-numbers"><a href="#n77" name="n77">77</a></span>}
+</pre></div>
+</div>
+</div>
+
+<p>La clase que viene vamos a partir de esta solución que todavía no está tan copada, porque el manejo del resultado de ejecución es engorroso y más manual de lo que nos gustaría. Sólo quedémonos con la idea de que dimos un paso grande hacia la felicidad!</p>
+
+<p>El código final luego de este paso se encuentra acá:</p>
+
+<p><a href="https://github.com/uqbar-paco/tadp-2015c2-clase9-microprocesador/tree/master/funcional-inmutable">https://github.com/uqbar-paco/tadp-2015c2-clase9-microprocesador/tree/master/funcional-inmutable</a></p>
+
+<p>[1] <a href="https://www.google.com/url?q=https://sourcemaking.com/design_patterns/visitor&amp;sa=D&amp;ust=1465054556955000&amp;usg=AFQjCNF250rlMRq7KCXAtkNT9cwuhA_cxA">SourceMaking: Visitor</a></p>
+
+		</div>
+	</div>
+</div>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    <li>
+                        <a href="https://github.com/uqbar-paco">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; TADP 2016</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

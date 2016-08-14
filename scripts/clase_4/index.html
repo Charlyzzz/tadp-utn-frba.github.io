@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Write your site description here. It will be used as your sites meta description as well!">
+
+    <title>TADP</title>
+
+    <link rel="canonical" href="http://uqbar-project.github.io/scripts/clase_4/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">TADP</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                
+                <li>
+                    <a href="/quienessomos/">Quienes Somos</a>
+                </li>
+                
+                <li>
+                    <a href="/administrativos/">Temas Administrativos</a>
+                </li>
+                
+                <li>
+                    <a href="/contenidos/">Contenidos</a>
+                </li>
+                
+                <li>
+                    <a href="/cursada/">Cursada</a>
+                </li>
+                
+                <li>
+                    <a href="/material/">Material</a>
+                </li>
+                
+                <li>
+                    <a href="/planificación/">Planificación</a>
+                </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1>TADP</h1>
+                    <hr class="small">
+                    <span class="subheading">Script Clase 4 TADP 1C2016</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+			<h1 id="clase-4-instanceeval-classeval-methodmissing">Clase 4: instance_eval, class_eval, method_missing</h1>
+
+<p>Queremos modelar un Meta Builder, el cual nos ofrece la posibilidad de armar Builders para cualquier clase que queramos, ahorrandonos el desarrollo de un builder por cada clase de nuestro dominio o modelo de negocio. </p>
+
+<p>La resolución del Meta Builder en clase está en el siguiente link: <a href="https://github.com/uqbar-paco/tadp-2016c1-metabuilder-clase">https://github.com/uqbar-paco/tadp-2016c1-metabuilder-clase</a> </p>
+
+<h2 id="punto-1-sintaxis-bsica-del-meta-builder">Punto 1: Sintaxis básica del Meta Builder</h2>
+
+<p>En el primer punto nos piden que modelemos y desarrollemos los métodos necesarios para setear una clase y sus propiedades, para luego armar un builder con esos datos. Empezamos con lo fundamental:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Metabuilder</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  attr_reader <span style="color:#A60">:klass</span>, <span style="color:#A60">:properties</span>, <span style="color:#A60">:validations</span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">initialize</span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>    <span style="color:#33B">@properties</span> = []
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">set_class</span>(klass)
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>    <span style="color:#33B">@klass</span> = klass
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">set_properties</span>(*args)
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>    <span style="color:#33B">@properties</span> += args
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">build</span>
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>    <span style="color:#036;font-weight:bold">Builder</span>.new <span style="color:#33B">@klass</span>, <span style="color:#33B">@properties</span>, <span style="color:#33B">@validations</span>
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span><span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Builder</span>
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>  attr_reader <span style="color:#A60">:properties</span>, <span style="color:#A60">:validations</span>
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">initialize</span>(klass, properties, validations)
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span>    <span style="color:#33B">@klass</span> = klass
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span>    <span style="color:#33B">@properties</span>= {}
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>
+<span class="line-numbers"><a href="#n31" name="n31">31</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">set_property</span>(sym, value)
+<span class="line-numbers"><a href="#n32" name="n32">32</a></span>    <span style="color:#069">self</span>.properties[sym] = value
+<span class="line-numbers"><a href="#n33" name="n33">33</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n34" name="n34">34</a></span>
+<span class="line-numbers"><a href="#n35" name="n35">35</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">build</span>
+<span class="line-numbers"><a href="#n36" name="n36">36</a></span>    instancia = <span style="color:#33B">@klass</span>.new
+<span class="line-numbers"><a href="#n37" name="n37">37</a></span>    <span style="color:#069">self</span>.properties.each <span style="color:#080;font-weight:bold">do</span> |property, value|
+<span class="line-numbers"><a href="#n38" name="n38">38</a></span>      instancia.send <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>property<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20">=</span><span style="color:#710">&quot;</span></span>.to_sym, value
+<span class="line-numbers"><a href="#n39" name="n39">39</a></span>    <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><strong><a href="#n40" name="n40">40</a></strong></span>    instancia
+<span class="line-numbers"><a href="#n41" name="n41">41</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n42" name="n42">42</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Vemos que es necesario definir las responsabilidades del Meta Builder como del Builder; el primero se encarga de definir la clase a instanciar, y sus propiedades sobre las cuales podemos trabajar en el Builder; el segundo se encarga de proveernos una interfaz para modificar los valores en dichas variables, y poder brindarnos una instancia con las propiedades ya seteadas.</p>
+
+<h3 id="method-missing">Method Missing</h3>
+
+<p>Cuando le enviamos un mensaje a un objeto, se ejecuta el primero que se encuentra durante el method lookup. Si no encontrase ninguno, arroja una excepción del tipo NoMethodError, salvo que ese objeto tenga definido un método para el mensaje ‘method_missing’. 
+Este mensaje recibe por parámetro el nombre del mensaje que no se encontró, junto con los argumentos con los cuales fue invocado. Esto nos permite manejar esta clase de situaciones en runtime, siendo una herramienta muy poderosa para hacer, entre otras cosas, que un objeto entienda cualquier mensaje.</p>
+
+<h2 id="punto-2-sintaxis-especfica">Punto 2: Sintaxis específica</h2>
+
+<p>En el 2do punto vemos que el test nos dicta la interfaz que debemos cumplir, como extensión al modelo anterior (es decir, que debe seguir soportándolo el uso del set_property)
+Como es observable, la clase Builder no entiende los mensajes ‘raza=’, ‘edad=’. Y es correcto, ya que la idea del Meta Builder debe ser agnóstico del dominio o modelo de negocio que manejemos. ¿Cómo solucionamos este problema?:</p>
+
+<p>Utilizando el method_missing. Nosotros querríamos que, cuando se envíe el mensaje ‘raza=’ el Builder responda de manera tal que termine asignando el valor a dicha propiedad. Esto lo resolvemos así:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Builder</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span><span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">method_missing</span>(symbol, *args)
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>    property_symbol = symbol.to_s[<span style="color:#00D">0</span>..<span style="color:#00D">-2</span>].to_sym
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>    <span style="color:#080;font-weight:bold">super</span> <span style="color:#080;font-weight:bold">unless</span> <span style="color:#069">self</span>.properties.has_key? property_symbol
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>    <span style="color:#069">self</span>.set_property property_symbol, args[<span style="color:#00D">0</span>]
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span> <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Es necesario modificar el nombre del método quitàndole el ‘=’ para poder buscarlo en el mapa que contiene todas las propiedades. Luego, verificamos que exista como propiedad, sino hacemos que continùe el flujo de ejecución del method_missing en toda la jerarquía, para mantener la consistencia de nuestro programa (sino podría pasar que tengamos la posibilidad de setear a un builder de perros que tenga una espada, por ejemplo). Finalmente, seteamos dicha propiedad con el argumento que, en este caso, es el primero. </p>
+
+<p>Warning:</p>
+
+<p>Esta posibilidad que nos da Ruby de re-definir el method_missing nos da un gran abanico de posibilidades a la hora de que un objeto entienda ciertos mensajes. Es decir, podríamos hacer que una Persona responda al mensaje ‘ladrar’, por ejemplo. Pero eso no significa que las Personas tengan definido un método ‘ladrar’. Si preguntamos a un builder
+de perros si entiende el mensaje ‘raza=’, nos dirá que no. Y esto termina por hacer que nuestro programa no sea consistente, dado que si le enviamos ese mensaje, el builder responde seteando un valor a dicha propiedad. 
+Para mantener la coherencia de nuestro framework, podemos redefinir el mensaje respond_to_missing? de manera tal que nos indique si responde o no a un mensaje que no está explícitamente definido. Este mensaje es invocado por el respond_to? si no encuentra el selector pasado por parámetro en los métodos definidos por el objeto receptor.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Builder</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>    <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">respond_to_missing?</span>(symbol, include_all) 
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>        property_symbol = symbol.to_s[<span style="color:#00D">0</span>..<span style="color:#00D">-2</span>].to_sym
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>        <span style="color:#069">self</span>.properties.has_key? property_symbol 
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>    <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Aplicando esta definición, podemos hacer esta consulta:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>metabuilder = <span style="color:#036;font-weight:bold">Metabuilder</span>.new
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>metabuilder.set_class(<span style="color:#036;font-weight:bold">Perro</span>)
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>metabuilder.set_properties(<span style="color:#A60">:raza</span>, <span style="color:#A60">:edad</span>)
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>builder_de_perros = metabuilder.build
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span>builder_de_perros.respond_to? <span style="color:#A60">:raza=</span>
+<span class="line-numbers"><a href="#n7" name="n7">7</a></span><span style="color:#777"># true</span>
+</pre></div>
+</div>
+</div>
+
+<p>En conclusión, se suele decir que siempre que se redefina el method_missing es necesario definir el respond_to_missing?.</p>
+
+<h2 id="punto-3-validaciones">Punto 3: Validaciones</h2>
+
+<p>Ahora se requiere que, antes de poder buildear una instancia, se corran ciertas validaciones que nos aseguren que dicha instancia es válida. Para ello, debemos poder setearle al metabuilder una serie de validaciones. Definimos el mensaje validate:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Metabuilder</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>    <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">validate</span>(&amp;block)
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>        <span style="color:#33B">@validations</span> &lt;&lt; block
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>    <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>    
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>    <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">build</span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>        <span style="color:#036;font-weight:bold">Builder</span>.new <span style="color:#33B">@klass</span>, <span style="color:#33B">@properties</span>, <span style="color:#33B">@validations</span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>    <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Observación: como vamos a recibir un bloque (que en Ruby no son objetos), y sólo podemos guardar objetos en las colecciones, lo necesitamos transformar en un Proc. Ruby nos da una forma sintáctica bastante simple para que, al recibir un bloque, se transforme implícitamente a un Proc, esto es, utilizando el ampersand (&amp;).</p>
+
+<p>Ahora necesitamos definir que toda instancia de Builder ejecute dichas validaciones antes de retornar la instancia…
+Lo que hay que tener en cuenta es que, dentro de las validaciones, se invocan mensajes que no entiende el Builder, porque son getters (:raza, :edad, :duenio). Estos mensajes sólo los entienden las instancias de Perro, o bien, de la target class que tenga el Builder. Pero cambiar el contexto de un bloque no es trivial… sin embargo, Ruby nos da una herramienta para hacer un work-around.</p>
+
+<p>Instance_eval</p>
+
+<p>Este mensaje recibe por parámetro un bloque, y lo ejecuta en el contexto de instancia del objeto receptor de dicho mensaje. Es decir, que podemos hacer algo así:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Builder</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>    <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">build</span> 
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>        instancia = <span style="color:#33B">@klass</span>.new 
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>        <span style="color:#069">self</span>.properties.each <span style="color:#080;font-weight:bold">do</span> |property, value| 
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>        instancia.send <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>property<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20">=</span><span style="color:#710">&quot;</span></span>.to_sym, value 
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>      <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>raise <span style="color:#036;font-weight:bold">ValidationError</span> <span style="color:#080;font-weight:bold">unless</span> <span style="color:#33B">@validations</span>.all? <span style="color:#080;font-weight:bold">do</span> |validation|
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>instancia.instance_eval &amp;validation 
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span><span style="color:#080;font-weight:bold">end</span> 
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>instancia
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>        <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>De esta manera, las validaciones se ejecutan en el contexto de instancia de la instancia de la clase que seteamos. (es decir, de la instancia de Perro).</p>
+
+<h2 id="punto-4-buildear-instancias-sobre-una-clase-no-existente">Punto 4: Buildear instancias sobre una clase no existente</h2>
+
+<p>Como último requerimiento de la clase, nos piden extender la interfaz de manera tal que un meta builder puede crear un builder para una clase que no existe. Es decir, que tendría que crear la clase y luego pasársela al builder cuando se le envíe el mensaje ‘build’ al meta builder.
+También debe ser posible recibir un bloque en el que definamos métodos de instancia para la clase en cuestión.
+Definimos un mensaje ‘create_class’ que recibe el símbolo, representante de la clase, y un bloque que define su estado.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Metabuilder</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span><span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">create_class</span>(sym, &amp;block)
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="color:#33B">@klass</span> = <span style="color:#036;font-weight:bold">Class</span>.new
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span><span style="color:#036;font-weight:bold">Object</span>.const_set sym, <span style="color:#33B">@klass</span> 
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span><span style="color:#33B">@klass</span>.instance_eval &amp;block 
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span><span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n7" name="n7">7</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<h4 id="qu-es-objectconstset-sym-klass">¿Qué es Object.const_set sym, @klass?</h4>
+
+<ul>
+  <li>Object.const_set: recibe un simbolo y un objeto, y crea una constante con el simbolo como nombre y el objeto como referencia.</li>
+  <li>sym: en este caso, el nombre de la clase (:Perro, :Gato, etc.)</li>
+  <li>@klass: la instancia de Class que representa a nuestra clase.</li>
+</ul>
+
+<p>En esta sentencia estamos creando una constante en el contexto global de manera tal que pueda ser invocada desde cualquier parte de nuestro programa. Si no ejecutamos esto, perderíamos la referencia global a dicha clase.</p>
+
+<p>Similar al problema anterior, nosotros querríamos que el bloque que define el estado de la clase se ejecute en el contexto de instancia de la clase (es decir, como instancia de Class), ya que si lo llamáramos con ‘call’ dentro del método ‘create_class’ se ejecutaría en el contexto de instancia de un meta builder.</p>
+
+		</div>
+	</div>
+</div>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    <li>
+                        <a href="https://github.com/uqbar-paco">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; TADP 2016</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>
